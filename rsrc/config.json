@@ -1,0 +1,27 @@
+{
+  "proxy": {
+    "proxy_type": "rotative",
+    "proxy_rotation_link": "https://ip.decodo.com/rotate",
+    "proxy_rotation_cooldown": 5
+  },
+  "cooldown": 30,
+  "headless": false,
+  "browser_args": [
+    "--start-maximized",
+    "--disable-background-networking",
+    "--disable-sync",
+    "--blink-settings=imagesEnabled=false",
+    "--disable-features=OptimizationGuideModelDownloading,OptimizationHintsFetching,OptimizationTargetPrediction,OptimizationHints",
+    "--disable-blink-features=AutomationControlled",
+    "--disable-dev-shm-usage",
+    "--disable-gpu",
+    "--disable-infobars",
+    "--disable-notifications",
+    "--disable-popup-blocking",
+    "--disable-web-security",
+    "--disable-features=IsolateOrigins,site-per-process"
+  ],
+  "messages": [
+    "Hey! I came across your post on r/lovable and noticed you're running into some trouble with your project. If you ever feel like getting a second pair of eyes (or hands), I run hydrapatch.io — I help indie devs and vibe coders debug, fix, and move forward. Feel free to book a free consultation anytime — no pressure at all. Just thought I'd reach out in case it could help. Either way, good luck with the project — rooting for you!"
+  ]
+}
