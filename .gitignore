@@ -3,3 +3,4 @@
 /db/
 /rsrc/proxies.json
 /rdt/accounts.json
+/.env
