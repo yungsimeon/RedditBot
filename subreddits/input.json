@@ -1,3 +1,4 @@
 {
-  "subreddit": "replit"
+  "subreddit": "lovable",
+  "search_query": "flair:\"help\" AND (\"need help\" OR \"how fix\" OR \"stuck\" OR \"sync problems\" OR \"error\" OR \"failed\" OR \"problem\" OR \"unable\" NOT \"free\" NOT \"tips\")"
 }

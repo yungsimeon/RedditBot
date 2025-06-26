@@ -252,13 +252,13 @@ def main():
     # Load configuration from input.json
     config = analyzer.load_input_config()
     subreddit = config['subreddit']
-    
+    search_query = config['search_query']
     # Get Reddit posts
     print(f"Fetching Reddit help posts from r/{subreddit}...")
     searcher = RedditJSONSearcher()
     
     # Search for help posts with pagination
-    help_posts = searcher.search_subreddit_paginated(subreddit, 'help', max_posts=100)
+    help_posts = searcher.search_subreddit_paginated(subreddit, search_query, max_posts=100)
     
     if not help_posts:
         print("No help posts found!")

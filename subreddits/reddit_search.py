@@ -19,7 +19,7 @@ class RedditJSONSearcher:
         
         Args:
             subreddit (str): Name of the subreddit (without 'r/')
-            search_term (str): Term to search for
+            search_term (str): Term to search for (supports advanced syntax like "term1" OR "term2" NOT "term3")
             limit (int): Number of posts to return (max 25 per request)
             sort (str): Sort method ('relevance', 'hot', 'top', 'new', 'comments')
             
@@ -350,6 +350,7 @@ def main():
         with open('subreddits/input.json', 'r') as f:
             config = json.load(f)
             subreddit = config['subreddit']
+            search_query = config.get('search_query', 'help')  # Default to 'help' if not specified
     except FileNotFoundError:
         print("Error: input.json file not found")
         exit(1)
@@ -360,11 +361,11 @@ def main():
         print("Error: input.json must contain a 'subreddit' field, received: ", config)
         exit(1)
   
-    help_posts = searcher.search_subreddit_paginated(subreddit, 'help', max_posts=100)
+    help_posts = searcher.search_subreddit_paginated(subreddit, search_query, max_posts=100)
     
     if help_posts:
-        print(f"\nFound {len(help_posts)} help posts:")
-        for i, post in enumerate(help_posts[:10], 1):  # Show first 10 posts
+        print(f"\nFound {len(help_posts)} posts for query '{search_query}':")
+        for i, post in enumerate(help_posts[:15], 1):  # Show first 10 posts
             print(f"{i}. {post['title']}")
             print(f"   Author: {post['author']} | Score: {post['score']} | Comments: {post['num_comments']}")
             print(f"   URL: {post['url']}")
@@ -375,6 +376,19 @@ def main():
         
         if len(help_posts) > 10:
             print(f"... and {len(help_posts) - 10} more posts")
+        
+        # Save results to JSON file
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"subreddits/results_{subreddit}_{timestamp}.json"
+        
+        # Extract only URLs from the posts and save directly
+        urls_only = [post['url'] for post in help_posts]
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(urls_only, f, indent=2, ensure_ascii=False)
+        
+        print(f"URLs saved to {filename}")
+    else:
+        print(f"No posts found for query '{search_query}'")
     
     # Respect rate limits
     time.sleep(searcher.rate_limit_delay)
